@@ -39,18 +39,28 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              flex: 8,
+              flex: 7,
               child: Image.asset(
                 "assets/images/splashPic.PNG",
+              ),
+            ),
+            //const SizedBox(height: 2),
+            const Text(
+              'IPASS',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.indigo,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
               ),
             ),
             //Image.asset('assets/images/splashPic.PNG'),
             const SizedBox(height: 10),
             const Text(
-              'L\'examen en ligne n\'a jamais été\naussi simple',
+              'L\'examen en ligne réinventé\n Simplicité et performance garanties !',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -1,6 +1,7 @@
 // ignore_for_file: null_closures, prefer_const_constructors, sort_child_properties_last, prefer_final_fields, library_private_types_in_public_api, unnecessary_cast
 
 import 'package:flutter/material.dart';
+import 'package:quiz_app/model/examen.dart';
 import 'dart:async';
 //import 'examen.dart';
 import 'examen_resultat.dart';
@@ -44,7 +45,6 @@ class _ExamenPassageState extends State<ExamenPassage> {
   ];
   // List<Question> _listQuestions = widget.examen.questions; // Access questions
 
-  var _timer = Timer.periodic(const Duration(seconds: 1), (timer) {});
   final _stopwatch = Stopwatch();
   double _progress = 0.0;
   bool _isCompleted = false;
@@ -53,25 +53,29 @@ class _ExamenPassageState extends State<ExamenPassage> {
   void initState() {
     super.initState();
     _stopwatch.start();
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      final elapsed = _stopwatch.elapsed.inSeconds;
-      final progress = elapsed / widget.examen.duree;
-      setState(() {
-        _progress = progress.clamp(0.0, 1.0); // Clamp progress between 0 and 1
-      });
-      if (progress >= 1.0 && !_isCompleted) {
-        _handleExamenCompletion();
-        _isCompleted = true;
-        timer.cancel();
-      }
-    });
+    _updateProgress(); // Start updating progress
   }
 
   @override
   void dispose() {
-    _timer.cancel();
     _stopwatch.stop();
     super.dispose();
+  }
+
+  void _updateProgress() {
+    final remainingTime =
+        widget.examen.duree * 60 - _stopwatch.elapsed.inSeconds;
+    final progress = remainingTime.toDouble() / (widget.examen.duree * 60);
+    setState(() {
+      _progress = progress.clamp(0.0, 1.0);
+    });
+    if (progress >= 1.0 && !_isCompleted) {
+      _handleExamenCompletion();
+      _isCompleted = true;
+    } else {
+      Future.delayed(const Duration(milliseconds: 50),
+          _updateProgress); // Update every 50ms
+    }
   }
 
   void _onReponseSelectionnee(String valeur) {
@@ -208,6 +212,12 @@ class _ExamenPassageState extends State<ExamenPassage> {
                 ),
               ],
             ),
+            const SizedBox(height: 20.0),
+            if (!_isCompleted) // Only show button if not completed
+              ElevatedButton(
+                onPressed: () => _handleExamenCompletion(),
+                child: const Text('Valider les réponses'),
+              ),
           ],
         ),
       ),

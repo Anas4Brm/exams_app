@@ -1,6 +1,8 @@
 // ignore_for_file: unused_field, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:quiz_app/data/user_data.dart';
+import 'package:quiz_app/Model/user.dart';
 
 class Inscription extends StatefulWidget {
   const Inscription({Key? key}) : super(key: key);
@@ -43,18 +45,6 @@ class _InscriptionState extends State<Inscription> {
                         ),
                       ),
                     ),
-                    /* Positioned(
-                      // Position title text
-                      bottom: 10.0,
-                      left: 10.0,
-                      child: const Text(
-                        'Inscription',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24.0,
-                        ),
-                      ),
-                    ),*/
                   ],
                 ),
                 Row(
@@ -219,7 +209,18 @@ class _InscriptionState extends State<Inscription> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Enregistrer l'utilisateur
+                      // Save user data
+                      final userId = UserData.generateUserId();
+                      final user = User(
+                        id: userId,
+                        nom: _nomController.text,
+                        prenom: _prenomController.text,
+                        email: _emailController.text,
+                        filiere: _filiereSelectionnee!,
+                        password: _mdpController.text,
+                      );
+                      UserData.addUser(user);
+
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Inscription réussie')),
                       );
