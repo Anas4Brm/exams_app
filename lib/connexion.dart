@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+//import 'package:quiz_app/data/user_data.dart';
 import 'package:quiz_app/inscription.dart';
+//import 'package:quiz_app/Model/user.dart';
 
 import 'acceuil.dart';
 
@@ -17,6 +19,28 @@ class _ConnexionState extends State<Connexion> {
   final _emailController = TextEditingController();
   final _mdpController = TextEditingController();
 
+  /*Future<void> _login() async {
+    if (_formKey.currentState!.validate()) {
+      final String email = _emailController.text;
+      final String password = _mdpController.text;
+
+      // Fetch the user from UserData based on email
+      final User? user = await UserData.getUserByEmail(email);
+
+      if (user != null && user.password == password) {
+        // Successfully logged in
+        await UserData.setLoggedInUser(user); // Set the logged-in user
+        Navigator.pushReplacementNamed(
+            context, '/accueil'); // Navigate to home page
+      } else {
+        // Handle invalid credentials (e.g., show an error message)
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Email ou mot de passe incorrect')),
+        );
+      }
+    }
+  }*/
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,16 +51,10 @@ class _ConnexionState extends State<Connexion> {
           Expanded(
             flex: 1,
             child: Image.asset(
-              'assets/images/connexionPic.png',
+              'assets/images/connexionPic.PNG',
               fit: BoxFit.cover,
             ),
           ),
-          //Image.asset(
-          // 'assets/images/connexionPic.png',
-          //  fit: BoxFit.cover,
-
-          //  height: MediaQuery.of(context).size.height / 2,
-          //),
           Container(
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.all(10),
@@ -130,20 +148,20 @@ class _ConnexionState extends State<Connexion> {
                       ),
                       const SizedBox(height: 40),
                       ElevatedButton(
-                        onPressed: () {
-                          // if (_formKey.currentState!.validate()) {
-
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Connexion réussie')),
-                          );
-                          // TODO: Rediriger vers la page d'accueil
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Accueil()),
-                          );
-                          //Navigator.pushReplacementNamed(context, '/accueil');
-                          // }
+                        onPressed: //_login,
+                            () {
+                          if (_formKey.currentState!.validate()) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Connexion réussie')),
+                            );
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Accueil()),
+                            );
+                            //Navigator.pushReplacementNamed(context, '/accueil');
+                          }
                         },
                         child: Text('Se connecter'),
                         style: ElevatedButton.styleFrom(
