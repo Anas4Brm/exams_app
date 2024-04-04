@@ -15,8 +15,14 @@ class UserData {
   }
 
   static void addUser(User user) {
+    if (user != null) {
     _users.add(user);
-    _saveUsersToPreferences();
+  } else {
+    // Handle the case where the user is null (log an error or display a message)
+    print('Error: User object is null');
+  }
+    //_users.add(user);
+    //_saveUsersToPreferences();
   }
 
   static User? getUserByEmail(String email) {
@@ -24,9 +30,6 @@ class UserData {
   }
 
   static Future<User?> getLoggedInUser() async {
-    // Replace with your actual logic to identify the logged-in user
-    // This is a placeholder for now
-
     // Here's an example assuming you store a logged-in user ID (replace with your approach)
     final int? loggedInUserId = await SharedPreferences.getInstance()
         .then((prefs) => prefs.getInt('logged_in_user_id'));
@@ -46,32 +49,12 @@ class UserData {
     final index = _users.indexWhere((u) => u.id == user.id);
     if (index != -1) {
       _users[index] = user;
-      _saveUsersToPreferences();
+     // _saveUsersToPreferences();
     } else {
       // Handle the case where the user to update is not found (log an error or throw an exception)
       print('Error: User not found for update (ID: ${user.id})');
     }
   }
 
-  static Future<void> _saveUsersToPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    final usersToSave = [];
-
-    for (var user in _users) {
-      // Combine secret and password for storage (not secure)
-      final combinedData = base64.encode(utf8.encode(user.password));
-
-      usersToSave.add({
-        'id': user.id,
-        'nom': user.nom,
-        'prenom': user.prenom,
-        'email': user.email,
-        'filiere': user.filiere,
-        'password': combinedData, // Store hashed password + salt
-      });
-    }
-
-    await prefs.setStringList(
-        'users', usersToSave.map((u) => jsonEncode(u)).toList());
-  }
+ 
 }

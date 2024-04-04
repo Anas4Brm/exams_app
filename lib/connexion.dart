@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:quiz_app/data/user_data.dart';
 //import 'package:quiz_app/data/user_data.dart';
 import 'package:quiz_app/inscription.dart';
 //import 'package:quiz_app/Model/user.dart';
-
 import 'acceuil.dart';
 
 class Connexion extends StatefulWidget {
@@ -40,6 +40,12 @@ class _ConnexionState extends State<Connexion> {
       }
     }
   }*/
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _mdpController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +98,7 @@ class _ConnexionState extends State<Connexion> {
                                 BorderSide(color: Colors.blue, width: 2.0),
                           ),
                         ),
+                        keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'L\'email est obligatoire';
@@ -151,16 +158,16 @@ class _ConnexionState extends State<Connexion> {
                         onPressed: //_login,
                             () {
                           if (_formKey.currentState!.validate()) {
+                            final email = _emailController.text;
+                            final password = _mdpController.text;
+                            _handleLogin(email, password);
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content: Text('Connexion réussie')),
+                                  content: Text('Connexion réussie'),
+                                  backgroundColor: Colors.green,),
                             );
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Accueil()),
-                            );
-                            //Navigator.pushReplacementNamed(context, '/accueil');
+
+                            Navigator.pushReplacementNamed(context, '/accueil');
                           }
                         },
                         child: Text('Se connecter'),
@@ -214,5 +221,50 @@ class _ConnexionState extends State<Connexion> {
         ],
       ),
     );
+  }
+
+  /*void _handleLogin(String email, String password) async {
+    print("email= $email password= $password");
+    final user = UserData.getUserByEmail(email);
+    if (user != null && user.password == password) {
+      await UserData.setLoggedInUser(user);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Accueil(loggedInUser: user)),
+      ); // Replace '/accueil' with your home page route
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Email ou mot de passe incorrect.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }*/
+  void _handleLogin(String email, String password)  {
+    print("email= $email password= $password");
+    final user = UserData.getUserByEmail(email);
+    if (user != null && user.password == password) {
+      //await UserData.setLoggedInUser(user);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Accueil(loggedInUser: user)),
+      ); // Replace '/accueil' with your home page route
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Email ou mot de passe incorrect.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+}
+
+extension EmailValidator on String {
+  bool get isValidEmail {
+    final emailRegExp = RegExp(
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
+    return emailRegExp.hasMatch(this);
   }
 }

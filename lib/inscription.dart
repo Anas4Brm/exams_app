@@ -17,8 +17,16 @@ class _InscriptionState extends State<Inscription> {
   final _prenomController = TextEditingController();
   final _emailController = TextEditingController();
   final _filieres = <String>['GI1', 'GI2', 'TM', 'SIR'];
-  String? _filiereSelectionnee;
   final _mdpController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nomController.dispose();
+    _prenomController.dispose();
+    _emailController.dispose();
+    _mdpController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +44,12 @@ class _InscriptionState extends State<Inscription> {
                 Stack(
                   children: [
                     Container(
-                      height: 150.0, // Adjust height as needed
-                      width: double.infinity, // Match parent width
+                      height: 150.0, 
+                      width: double.infinity, 
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/nsignupPic.PNG'),
-                          fit: BoxFit.cover, // Adjust fit for background image
+                          fit: BoxFit.cover, 
                         ),
                       ),
                     ),
@@ -63,7 +71,7 @@ class _InscriptionState extends State<Inscription> {
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: BorderSide(
                                 color: Colors.lightBlue,
-                                width: 2.0), // Change border color on focus
+                                width: 2.0), 
                           ),
                           fillColor: Color.fromARGB(255, 238, 238, 238),
                         ),
@@ -90,7 +98,7 @@ class _InscriptionState extends State<Inscription> {
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: BorderSide(
                                 color: Colors.lightBlueAccent,
-                                width: 2.0), // Change border color on focus
+                                width: 2.0), 
                           ),
                           fillColor: Color.fromARGB(255, 238, 238, 238),
                         ),
@@ -118,7 +126,7 @@ class _InscriptionState extends State<Inscription> {
                       borderRadius: BorderRadius.circular(10.0),
                       borderSide: BorderSide(
                           color: Colors.lightBlueAccent,
-                          width: 2.0), // Change border color on focus
+                          width: 2.0), 
                     ),
                     fillColor: Color.fromARGB(255, 238, 238, 238),
                   ),
@@ -150,7 +158,7 @@ class _InscriptionState extends State<Inscription> {
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: BorderSide(
                                 color: Colors.lightBlueAccent,
-                                width: 2.0), // Change border color on focus
+                                width: 2.0), 
                           ),
                           fillColor: Color.fromARGB(255, 238, 238, 238),
                         ),
@@ -160,17 +168,7 @@ class _InscriptionState extends State<Inscription> {
                                   child: Text(filiere),
                                 ))
                             .toList(),
-                        validator: (value) {
-                          if (value == null) {
-                            return 'Veuillez sélectionner une filière';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          setState(() {
-                            _filiereSelectionnee = value;
-                          });
-                        },
+                          value:"GI2",
                         onChanged: (String? value) {},
                       ),
                     ),
@@ -191,7 +189,7 @@ class _InscriptionState extends State<Inscription> {
                       borderRadius: BorderRadius.circular(10.0),
                       borderSide: BorderSide(
                           color: Colors.lightBlueAccent,
-                          width: 2.0), // Change border color on focus
+                          width: 2.0), 
                     ),
                     fillColor: Color.fromARGB(255, 238, 238, 238),
                   ),
@@ -208,6 +206,10 @@ class _InscriptionState extends State<Inscription> {
                 const SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: () {
+                    print("nom: ${_nomController.text}");
+print("prenom: ${_prenomController.text}");
+print("email: ${_emailController.text}");
+print("password: ${_mdpController.text}");
                     if (_formKey.currentState!.validate()) {
                       // Save user data
                       final userId = UserData.generateUserId();
@@ -216,26 +218,29 @@ class _InscriptionState extends State<Inscription> {
                         nom: _nomController.text,
                         prenom: _prenomController.text,
                         email: _emailController.text,
-                        filiere: _filiereSelectionnee!,
+                        filiere: "GI2",
                         password: _mdpController.text,
                       );
                       UserData.addUser(user);
 
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Inscription réussie')),
+                        const SnackBar(
+                          content: Text('Inscription réussie'),
+                          backgroundColor: Colors.green,
+                        ),
                       );
-                      Navigator.pushNamed(context, '/connexion');
+                      Navigator.pushReplacementNamed(context, '/connexion');
                     }
                   },
                   child: Text('S\'inscrire'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white, // Button color
+                    foregroundColor: Colors.white, 
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 15.0), // Adjust padding
+                        horizontal: 20.0, vertical: 15.0),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -248,7 +253,7 @@ class _InscriptionState extends State<Inscription> {
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(
-                            context, '/connexion'); // Login route
+                            context, '/connexion');
                       },
                       child: const Text('Se connecter'),
                     ),

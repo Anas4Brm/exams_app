@@ -79,7 +79,7 @@ class SplashScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 15.0), // Adjust padding
+                        horizontal: 20.0, vertical: 15.0), 
                   ),
                 ),
                 const SizedBox(width: 20),
@@ -90,12 +90,12 @@ class SplashScreen extends StatelessWidget {
                   child: const Text('Se connecter'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white, // Button color
+                    foregroundColor: Colors.white, 
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 15.0), // Adjust padding
+                        horizontal: 20.0, vertical: 15.0), 
                   ),
                 ),
               ],

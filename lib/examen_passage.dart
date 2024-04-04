@@ -20,30 +20,54 @@ class ExamenPassage extends StatefulWidget {
 
 class _ExamenPassageState extends State<ExamenPassage> {
   int _currentQuestionIndex = 0;
-  final int _nbQuestions = 2;
+  final int _nbQuestions = 4;
   List<Question> _listQuestions = [
     Question(
-      question: 'What is 2 + 2?',
-      reponses: [
-        Reponse(valeur: 'a', texte: '1'),
-        Reponse(valeur: 'b', texte: '4'),
-        Reponse(valeur: 'c', texte: '3'),
-        Reponse(valeur: 'd', texte: '6'),
-      ],
-      reponseCorrecte: 'b',
-    ),
-    Question(
-      question: 'What is the area of a square with side length 5?',
-      reponses: [
-        Reponse(valeur: 'a', texte: '10'),
-        Reponse(valeur: 'b', texte: '20'),
-        Reponse(valeur: 'c', texte: '15'),
-        Reponse(valeur: 'd', texte: '35'),
-      ],
-      reponseCorrecte: 'b',
-    ),
+        question:
+            ' L’objet « ServletContext » est accessible depuis lequel des objets suivants?',
+        reponses: [
+          Reponse(valeur: 'a', texte: 'HttpServlet'),
+          Reponse(valeur: 'b', texte: 'HttpSession'),
+          Reponse(valeur: 'c', texte: 'ServletConfig'),
+          Reponse(valeur: 'd', texte: 'Tout ces réponses'),
+        ],
+        reponseCorrecte: 'd',
+      ),
+      Question(
+        question:
+            ' Lequel des éléments suivants n’est pas inclus dans une URL?',
+        reponses: [
+          Reponse(valeur: 'a', texte: 'l\'adresse IP du client'),
+          Reponse(valeur: 'b', texte: 'Protocole'),
+          Reponse(valeur: 'c', texte: 'Nom du serveur'),
+          Reponse(valeur: 'd', texte: 'La requête'),
+        ],
+        reponseCorrecte: 'a',
+      ),
+      Question(
+        question:
+            ' L’objet « ServletContext » est accessible depuis lequel des objets suivants?',
+        reponses: [
+          Reponse(valeur: 'a', texte: 'HttpServlet'),
+          Reponse(valeur: 'b', texte: 'HttpSession'),
+          Reponse(valeur: 'c', texte: 'ServletConfig'),
+          Reponse(valeur: 'd', texte: 'Tout ces réponses'),
+        ],
+        reponseCorrecte: 'd',
+      ),
+      Question(
+        question:
+            ' Lequel des éléments suivants n’est pas inclus dans une URL?',
+        reponses: [
+          Reponse(valeur: 'a', texte: 'l\'adresse IP du client'),
+          Reponse(valeur: 'b', texte: 'Protocole'),
+          Reponse(valeur: 'c', texte: 'Nom du serveur'),
+          Reponse(valeur: 'd', texte: 'La requête'),
+        ],
+        reponseCorrecte: 'a',
+      ),
   ];
-  // List<Question> _listQuestions = widget.examen.questions; // Access questions
+  //List<Question> _listQuestions = widget.examen.questions; 
 
   final _stopwatch = Stopwatch();
   double _progress = 0.0;
@@ -52,8 +76,9 @@ class _ExamenPassageState extends State<ExamenPassage> {
   @override
   void initState() {
     super.initState();
+    print("passage ok");
     _stopwatch.start();
-    _updateProgress(); // Start updating progress
+    //_updateProgress(); // Start updating progress
   }
 
   @override
@@ -111,17 +136,13 @@ class _ExamenPassageState extends State<ExamenPassage> {
 
   @override
   Widget build(BuildContext context) {
+    print("Examn passage");
     return Scaffold(
       appBar: AppBar(
         title: Text(
           '${widget.examen.titre} - Question ${_currentQuestionIndex + 1} / $_nbQuestions',
         ),
         actions: [
-          LinearProgressIndicator(
-            value: _progress,
-            color: Colors.blue,
-            backgroundColor: Colors.grey,
-          ),
           const SizedBox(width: 10),
           IconButton(
             icon: const Icon(Icons.stop),
@@ -148,6 +169,12 @@ class _ExamenPassageState extends State<ExamenPassage> {
                   style: const TextStyle(fontSize: 16.0),
                 ),
               ],
+            ),
+            const SizedBox(height: 10.0),
+            LinearProgressIndicator(
+              value: _progress,
+              color: Colors.blue,
+              backgroundColor: Colors.grey,
             ),
             const SizedBox(height: 10.0),
             Container(
@@ -195,13 +222,7 @@ class _ExamenPassageState extends State<ExamenPassage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _currentQuestionIndex > 0
-                    ? TextButton(
-                        onPressed: () =>
-                            setState(() => _currentQuestionIndex--),
-                        child: const Text('Précédent'),
-                      )
-                    : const SizedBox(),
+                const SizedBox(),
                 TextButton(
                   onPressed: _onQuestionSuivante,
                   child: Text('Suivant'),

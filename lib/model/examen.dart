@@ -28,6 +28,7 @@ class Reponse {
 
 class Examen {
   final String titre;
+  final String filiere;
   final String prof;
   final String description;
   final DateTime date;
@@ -38,6 +39,7 @@ class Examen {
 
   Examen({
     required this.titre,
+    required this.filiere,
     required this.prof,
     required this.description,
     required this.date,

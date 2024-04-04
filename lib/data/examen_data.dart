@@ -3,33 +3,12 @@ import 'package:quiz_app/model/examen.dart';
 
 // Sample exam data
 List<Examen> sampleExamens = [
-  Examen(
-    titre: 'Analyse',
-    prof: 'Pr.OUARTASSI',
-    date: DateTime(2024, 3, 30),
-    description: 'Les séries numériques',
-    duree: 60,
-    questions: [
-      Question(
-        question: 'What is 2 + 2?',
-        reponses: [
-          Reponse(valeur: 'a', texte: '1'),
-          Reponse(valeur: 'b', texte: '4'),
-          Reponse(valeur: 'c', texte: '3'),
-          Reponse(valeur: 'd', texte: '6'),
-        ],
-        reponseCorrecte: 'b',
-      ),
-      // Add more questions here
-    ],
-  ),
 
-  // Add more sample exams here
   Examen(
     titre: 'Laravel',
+    filiere: 'GI2',
     prof: 'Pr.TOUFIK',
-    //date: DateTime.now().add(Duration(days: 7)),
-    date: DateTime(2024, 3, 30),
+    date: DateTime(2024, 4, 4),
     description: 'Developpement web',
     duree: 60,
     questions: [
@@ -57,13 +36,14 @@ List<Examen> sampleExamens = [
   ),
   Examen(
     titre: 'PL/SQL',
+    filiere: 'GI2',
     prof: 'Pr.LAFDAOUI',
     date: DateTime(2024, 4, 1, 13, 30),
     description: 'manipulation de bd',
     duree: 60,
     questions: [
       Question(
-        question: '1. PL/SQL est un _________________',
+        question: ' PL/SQL est un _________________',
         reponses: [
           Reponse(valeur: 'a', texte: 'Langage structuré en modules'),
           Reponse(valeur: 'b', texte: 'Langage structuré en blocs'),
@@ -73,7 +53,7 @@ List<Examen> sampleExamens = [
         reponseCorrecte: 'b',
       ),
       Question(
-        question: '2. Que signifie l’acronyme PL/SQL ?',
+        question: ' Que signifie l’acronyme PL/SQL ?',
         reponses: [
           Reponse(valeur: 'a', texte: 'Private Language/SQL'),
           Reponse(valeur: 'b', texte: 'Pattern Language/SQL'),
@@ -83,7 +63,7 @@ List<Examen> sampleExamens = [
         reponseCorrecte: 'c',
       ),
       Question(
-        question: '3. Les variables PL/SQL sont par défaut _______________',
+        question: ' Les variables PL/SQL sont par défaut _______________',
         reponses: [
           Reponse(valeur: 'a', texte: 'Sensibles à la casse'),
           Reponse(valeur: 'b', texte: 'Sensibles aux majuscules'),
@@ -94,7 +74,7 @@ List<Examen> sampleExamens = [
       ),
       Question(
         question:
-            '4. Une valeur est attribuée à une constante en PL/SQL au moment de l’initialisation.',
+            ' Une valeur est attribuée à une constante en PL/SQL au moment de l’initialisation.',
         reponses: [
           Reponse(valeur: 'a', texte: 'Initialisation'),
           Reponse(valeur: 'b', texte: 'Déclaration'),
@@ -107,15 +87,15 @@ List<Examen> sampleExamens = [
   ),
   Examen(
     titre: 'JAVA EE',
+    filiere: 'GI2',
     prof: 'Pr.TOUFIK',
-    //date: DateTime.now().add(Duration(days: 7)),
-    date: DateTime(2024, 4, 1, 15, 30),
+    date: DateTime(2024, 4, 4, 15, 30),
     description: 'Developpement web',
     duree: 60,
     questions: [
       Question(
         question:
-            '1. L’objet « ServletContext » est accessible depuis lequel des objets suivants?',
+            ' L’objet « ServletContext » est accessible depuis lequel des objets suivants?',
         reponses: [
           Reponse(valeur: 'a', texte: 'HttpServlet'),
           Reponse(valeur: 'b', texte: 'HttpSession'),
@@ -126,7 +106,29 @@ List<Examen> sampleExamens = [
       ),
       Question(
         question:
-            '2. Lequel des éléments suivants n’est pas inclus dans une URL?',
+            ' Lequel des éléments suivants n’est pas inclus dans une URL?',
+        reponses: [
+          Reponse(valeur: 'a', texte: 'l\'adresse IP du client'),
+          Reponse(valeur: 'b', texte: 'Protocole'),
+          Reponse(valeur: 'c', texte: 'Nom du serveur'),
+          Reponse(valeur: 'd', texte: 'La requête'),
+        ],
+        reponseCorrecte: 'a',
+      ),
+      Question(
+        question:
+            ' L’objet « ServletContext » est accessible depuis lequel des objets suivants?',
+        reponses: [
+          Reponse(valeur: 'a', texte: 'HttpServlet'),
+          Reponse(valeur: 'b', texte: 'HttpSession'),
+          Reponse(valeur: 'c', texte: 'ServletConfig'),
+          Reponse(valeur: 'd', texte: 'Tout ces réponses'),
+        ],
+        reponseCorrecte: 'd',
+      ),
+      Question(
+        question:
+            ' Lequel des éléments suivants n’est pas inclus dans une URL?',
         reponses: [
           Reponse(valeur: 'a', texte: 'l\'adresse IP du client'),
           Reponse(valeur: 'b', texte: 'Protocole'),
@@ -139,8 +141,8 @@ List<Examen> sampleExamens = [
   ),
   Examen(
     titre: 'Projet startUp',
+    filiere: 'GI2',
     prof: 'Pr.BOUSDIG',
-    //date: DateTime.now().add(Duration(days: 7)),
     date: DateTime(2024, 4, 17, 14, 00),
     description: 'Projet startUp',
     duree: 60,
@@ -148,11 +150,32 @@ List<Examen> sampleExamens = [
   ),
   Examen(
     titre: 'Language C',
+    filiere: 'GI2',
     prof: 'Pr.KARRA',
-    //date: DateTime.now().add(Duration(days: 7)),
     date: DateTime(2024, 4, 18, 15, 30),
     description: 'Structure de données ',
     duree: 60,
     questions: [],
+  ),
+  Examen(
+    titre: 'Analyse',
+    filiere: 'GI2',
+    prof: 'Pr.OUARTASSI',
+    date: DateTime(2024, 4, 3),
+    description: 'Les séries numériques',
+    duree: 60,
+    questions: [
+      Question(
+        question: 'What is 2 + 2?',
+        reponses: [
+          Reponse(valeur: 'a', texte: '1'),
+          Reponse(valeur: 'b', texte: '4'),
+          Reponse(valeur: 'c', texte: '3'),
+          Reponse(valeur: 'd', texte: '6'),
+        ],
+        reponseCorrecte: 'b',
+      ),
+      // Add more questions here
+    ],
   ),
 ];

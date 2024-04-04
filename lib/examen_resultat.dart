@@ -72,10 +72,19 @@ class ExamenResultat extends StatelessWidget {
   }
 
   Widget _buildQuestionResultItem(Question question, String reponseChoisie) {
-    bool isCorrect = question.reponseCorrecte == reponseChoisie;
+    final isCorrect = question.reponseCorrecte == reponseChoisie;
+    final leadingIcon = isCorrect ? const Icon(Icons.check, color: Colors.green) : const Icon(Icons.close, color: Colors.red);
     return ListTile(
+      leading: leadingIcon,
       title: Text(question.question),
-      subtitle: Text(reponseChoisie),
+      //subtitle: Text(reponseChoisie),
+      subtitle: Row(
+        children: [
+          Text('Choix : $reponseChoisie  '),
+          if (isCorrect) const Text('(Correct)', style: TextStyle(color: Colors.green)),
+          if (!isCorrect) const Text('(Incorrect)', style: TextStyle(color: Colors.red)),
+        ],
+      ),
     );
   }
 }
